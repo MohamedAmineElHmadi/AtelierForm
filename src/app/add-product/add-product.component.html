@@ -1,0 +1,64 @@
+<h1>Ecercice Form</h1>
+    <form #f="ngForm">
+    <div class="form-group">
+      <label for="id">id Product</label>
+      <input type="text" class="form-control" id="id" name="idProduct"  ngModel #idProduct="ngModel" required >
+      <div class="alert alert-danger" *ngIf="idProduct.invalid && idProduct.touched">Champs invalide </div>
+    </div>
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input type="text" class="form-control" name="code"  id="code" required pattern ="[a-zA-Z-0-9]{8}" ngModel #code="ngModel">
+      <div class="alert alert-danger" *ngIf="code.invalid && code.touched">
+            <div *ngIf="code.errors?.['required']"> The code is required.</div>
+            <div *ngIf="code.errors?.['pattern']"> The code must be 8 characters long.</div>    
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="libelle">Libelle</label>
+        <input type="text" class="form-control" id="libelle" name="libelle"  required minlength="3" ngModel #libelle="ngModel" >
+        <div class="alert alert-danger" *ngIf="libelle.invalid && libelle.touched">
+          <div *ngIf="libelle.errors?.['required']"> Libelle is required.</div>
+          <div *ngIf="libelle.errors?.['minlength']">Libelle must be 8 characters long.</div>    
+       </div>
+      </div>
+      <div class="form-group">
+        <label for="prix">Prix unitaire</label>
+        <input type="text" class="form-control" id="prix" name="prixU"  required pattern="[1-9][0-9]*" ngModel #prixU="ngModel">
+        <div class="alert alert-danger" *ngIf="prixU.invalid && prixU.touched">
+          <div *ngIf="code.errors?.['required']"> Le prix unitaire est  obligatoire.</div>
+          <div *ngIf="code.errors?.['pattern']">Le prix doit contenir que des chiffres</div>    
+    </div>
+      </div >
+      <br>
+      <div class="form-group"  *ngIf='buttonApparition'>
+        <button class="btn btn-primary" [disabled]="f.invalid" (click)="fonction()">Suivant</button>
+     </div>
+    </form>
+    <br>
+    <form  #f2="ngForm" *ngIf="next"> 
+     <div class="form-group">
+        <label for="idDetails">id details Product</label>
+        <input type="text"  class="form-control" id="idDetails" required name="idDetails" ngModel #idDetails="ngModel">
+        <div class="alert alert-danger" *ngIf="idDetails.invalid && idDetails.touched">Champs invalide </div>
+      </div>
+      <div class="form-group">
+        <label for="dateCreation">date de création</label>
+        <input type="text" class="form-control" id="dateCreation" required  name="DateCreation" ngModel #DateCreation="ngModel">
+        <div class="alert alert-danger" *ngIf="DateCreation.invalid && DateCreation.touched">Champs invalide </div>
+    </div>
+      <div class="form-group" [hidden]="DateCreation.invalid">
+          <label for="dateModification">date derniére modification </label>
+          <input type="text" class="form-control" id="dateModification" required name="dateModification" ngModel #dateModification="ngModel">
+          <div class="alert alert-danger" *ngIf="dateModification.invalid && dateModification.touched">Champs invalide </div>
+        </div>
+        <div class="form-group">
+            <label for="CategorieProduit">Categorie Produit</label>
+            <select id="CategorieProduit" class="form-control" required name="categorieProduit" ngModel #categorieProduit="ngModel">
+              <option selected>Electroménager</option>
+              <option>Alimentaire</option>
+              <option>Quincaillerie</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="idProduct.invalid && idProduct.touched">Champs invalide </div>
+          </div>
+          <button class="btn btn-success" [hidden]="f2.invalid">Ajouter </button>
+          </form>
